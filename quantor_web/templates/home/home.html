@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quantor Home Page</title>
+    <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <strong>Quantor</strong>
+        <p>Log In</p>
+        <p>Sign Up</p>
+    </header>
+    <hr>
+    <nav>
+    <ul>
+        <li><a href="{{ url_for('tvm_routes.tvm_formulas') }}" style="text-decoration: none;">TVM</a></li>
+        <li><a>RnP</a></li>
+        <li><a>Derivatives</a></li>
+        <li><a>FI</a></li>
+        <li><a>CFnV</a></li>
+    </ul>
+    </nav>
+    <hr>
+    <div id="home_body">
+        <h1>Welcome to <b>QUANTOR</b>!</h1><br>
+        <h4>Having a doubt on a formula?<br>You're at the right place</h4>
+    </div>
+    <hr>
+    <footer>
+        <p>© 2026 Quantor. All rights reserved.</p>
+    </footer>
+</body>
+</html>
