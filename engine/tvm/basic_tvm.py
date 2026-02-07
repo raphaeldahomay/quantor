@@ -1,20 +1,22 @@
-from engine.tvm.rates import discount_factor, capitalisation_factor
+from engine.tvm.rates import discount_factor, capitalisation_factor, cap_factor_cont, disc_factor_cont
 
 
-def present_value(fv: float, r: float, n: int) -> float:
-    return fv * discount_factor(r, n)
+def pv_all_kind(fv: float, r: float, n: int, type="std_comp") -> float:
+    if type == "linear":
+        return round(fv / (1 + r * n), 2)
+    elif type == "std_comp":
+        return round(fv * discount_factor(r, n), 2)
+    else:
+        return round(fv * disc_factor_cont(r, n), 2)
+    
 
-
-def future_value(pv: float, r: float, n: int) -> float:
-    return pv * capitalisation_factor(r, n)
-
-
-def single_int_pv(fv: float, r: float, n: int) -> float:
-    return fv / (1 + r * n)
-
-
-def single_int_fv(pv: float, r: float, n: int) -> float:
-    return pv * (1 + r * n)
+def fv_all_kind(pv: float, r: float, n: int, type="std_cap") -> float:
+    if type == "linear":
+        return round(pv * (1 + r * n), 2)
+    elif type == "std_cap":
+        return round(pv * capitalisation_factor(r, n), 2)
+    else:
+        return round(pv * cap_factor_cont(r, n), 2)
 
 
 def pv_future_cfs(cf: float, r: float, n: int, when: str = "end") -> float:

@@ -21,8 +21,18 @@ def discount_factor(r: float, n: int) -> float:
 def ear(apr: float, m: int) -> float:
     return ((1 + (apr / m)) ** m) - 1
 
+
 def apr(ear: float, m: int) -> float:
     return ((1 + ear) ** (1 / m) - 1) * m
 
-def cont_comp_rate(apr: float) -> float:
-    return math.exp(apr) - 1
+
+def cont_comp_rate(apr: float, m: int) -> float:
+    return m * math.log(1 + apr)
+
+
+def cap_factor_cont(r: float, n: int) -> float:
+    return math.exp(r * n)
+
+
+def disc_factor_cont(r: float, n: int) -> float:
+    return 1 / cap_factor_cont(r, n)

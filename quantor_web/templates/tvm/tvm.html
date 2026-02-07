@@ -16,7 +16,55 @@
         <p>Sign Up</p>
     </header>
     <hr>
-    <form action="{{ url_for('tvm_routes.calc_stand_annuity') }}" method="post">
+        <form action="{{ url_for('tvm_routes.calc_simple_pv') }}" method="post">
+        <fieldset>
+            <legend><strong>Present Value of a Future Cash Flow:</strong></legend>
+            <label for="fv">Cash Flow (CF):</label>
+            <input type="number" id="fv" name="fv" step="any" required>
+            <label for="r">Rate (r):</label>
+            <input type="number" id="r" name="r" step="any" required>
+            <label for="n">Periods (n):</label>
+            <input type="number" id="n" name="n" step="any" required>
+            <label for="type">Discounting Type:</label>
+            <select name="type">
+                <option value="linear">Linear Discounting</option>
+                <option value="std_comp">Standard Compounding</option>
+                <option value="cont_comp">Continuous Compounding</option>
+            </select>
+            <button type="submit">Calculate</button><br>
+            {% if result_simple_pv %}
+                <p>The present value of your cash flow is <strong>{{result_simple_pv}}</strong> $</p>
+            {% endif %}
+            <br>
+            <a href="{{ url_for('tvm_routes.see_tvm_form_1') }}">See formula details</a>
+	    </fieldset>
+        </form>
+    <hr>
+        <form action="{{ url_for('tvm_routes.calc_simple_fv') }}" method="post">
+        <fieldset>
+            <legend><strong>Future Value of a Present Cash Flow:</strong></legend>
+            <label for="pv">Cash Flow (CF):</label>
+            <input type="number" id="pv" name="pv" step="any" required>
+            <label for="r">Rate (r):</label>
+            <input type="number" id="r" name="r" step="any" required>
+            <label for="n">Periods (n):</label>
+            <input type="number" id="n" name="n" step="any" required>
+            <label for="type">Capitalisation Type:</label>
+            <select name="type">
+                <option value="linear">Linear Cap</option>
+                <option value="std_cap">Standard Cap</option>
+                <option value="cont_cap">Continuous Cap</option>
+            </select>
+            <button type="submit">Calculate</button><br>
+            {% if result_simple_fv %}
+                <p>The future value of your cash flow is <strong>{{result_simple_fv}}</strong> $</p>
+            {% endif %}
+            <br>
+            <a href="{{ url_for('tvm_routes.see_tvm_form_2') }}">See formula details</a>
+	    </fieldset>
+        </form>
+    <hr>
+        <form action="{{ url_for('tvm_routes.calc_stand_annuity') }}" method="post">
         <fieldset>
             <legend><strong>Present Value of Annuities:</strong></legend>
             <label for="cf">Cash Flow (CF):</label>
@@ -34,8 +82,10 @@
             {% if result_ann_stand %}
                 <p>The present value of your annuities is <strong>{{result_ann_stand}}</strong> $</p>
             {% endif %}
+            <br>
+            <a href="{{ url_for('tvm_routes.see_tvm_form_3') }}">See formula details</a>
 	    </fieldset>
-    </form>
+        </form>
     <hr>
         <form action="{{ url_for('tvm_routes.calc_fv_annuity') }}" method="post">
         <fieldset>
@@ -55,6 +105,8 @@
             {% if result_fv_ann %}
                 <p>The future value of your annuities is <strong>{{result_fv_ann}}</strong> $</p>
             {% endif %}
+            <br>
+            <a href="{{ url_for('tvm_routes.see_tvm_form_4') }}">See formula details</a>
 	    </fieldset>
         </form>
     <hr>
@@ -73,6 +125,8 @@
             {% else %}
                 <p>{{result_irr}}</p>
             {% endif %}
+            <br>
+            <a href="{{ url_for('tvm_routes.see_tvm_form_5') }}">See formula details</a>
 	    </fieldset>
         </form>
     <hr>
@@ -89,6 +143,8 @@
             {% else %}
                 <p>{{result_pv_perp}}</p>
             {% endif %}
+            <br>
+            <a href="{{ url_for('tvm_routes.see_tvm_form_6') }}">See formula details</a>
 	    </fieldset>
         </form>
     <hr>
@@ -107,6 +163,8 @@
             {% else %}
                 <p>{{result_pv_grow_perp}}</p>
             {% endif %}
+            <br>
+            <a href="{{ url_for('tvm_routes.see_tvm_form_7') }}">See formula details</a>
 	    </fieldset>
         </form>
     <footer>

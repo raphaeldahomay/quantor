@@ -22,7 +22,7 @@ Next steps:
 Very important!
 - DO NOT FOCUS ON UX DESIGN
 - FOCUS ON THE MAIN ARCHITECTURE
-- find a potential partners for the artistic part
+- find a potential partner for the artistic part
 
 
 by Raphael Dahomay :)

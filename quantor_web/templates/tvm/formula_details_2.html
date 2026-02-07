@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TVM Formula Details</title>
+    <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body>
+    <header>
+        <strong>Quantor</strong>
+        <button type="button">
+            <a href="{{ url_for('index') }}" style="text-decoration: none; color: black;">Home</a>
+        </button>
+        <button type="button">
+            <a href="{{ url_for('tvm_routes.tvm_formulas') }}" style="text-decoration: none; color: black;">Back</a>
+        </button>
+        <p>Log In</p>
+        <p>Sign Up</p>
+    </header>
+    <hr>
+    <h3>FV using the linear capitalisation</h3>
+    <p style="font-size: larger;">
+        \[
+        FV = {CF}*{(1+r*n)}
+        \]
+    </p>
+    <hr>
+    <h3>FV using the standard capitalisation</h3>
+    <p style="font-size: larger;">
+        \[
+        FV = {CF}*{(1+r)^n}
+        \]
+    </p>
+    <hr>
+    <h3>FV using the continuous capitalisation</h3>
+    <p style="font-size: larger;">
+        \[
+        FV = {CF}*{e^{r*n}}
+        \]
+    </p>
+    <hr>
+    <footer>
+        <p>© 2026 Quantor. All rights reserved.</p>
+    </footer>
+</body>
