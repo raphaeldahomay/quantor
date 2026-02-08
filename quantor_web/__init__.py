@@ -24,6 +24,8 @@ def create_app(test_config=None):
     # register blueprints
     from .routes.tvm_routes import tvm
     app.register_blueprint(tvm)
+    from .routes.rnd_routes import rnd
+    app.register_blueprint(rnd)
     from .routes import auth
     app.register_blueprint(auth.bp)
 

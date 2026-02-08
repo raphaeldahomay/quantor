@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="styles.css">
+    <script src="{{ url_for('static', filename='js/navbar.js') }}" defer></script>
 </head>
 <body>
     <header>
@@ -15,8 +16,17 @@
     <hr>
     <nav>
     <ul>
-        <li><a href="{{ url_for('tvm_routes.tvm_formulas') }}" style="text-decoration: none;">TVM</a></li>
-        <li><a>RnP</a></li>
+        <li><button><a href="{{ url_for('tvm_routes.tvm_formulas') }}" style="text-decoration: none; color: black;">TVM</a></button></li>
+        <li><button id="rnd_but">RnD</button></li>
+            <ul id="rnd_but_drop" hidden>
+                <li><a href="{{ url_for('rnd_routes.prob_formulas') }}" style="text-decoration: none;">Uncertainty Modeling</a></li>
+                <li><a href="{{ url_for('rnd_routes.rm_formulas') }}" style="text-decoration: none;">Risk Measurement</a></li>
+                <li><a href="{{ url_for('rnd_routes.dnr_formulas') }}" style="text-decoration: none;">Distribution Risk</a></li>
+                <li><a href="{{ url_for('rnd_routes.dnd_formulas') }}" style="text-decoration: none;">Dependence & Diversification</a></li>
+                <li><a href="{{ url_for('rnd_routes.tail_formulas') }}" style="text-decoration: none;">Downside & Tail Risk</a></li>
+                <li><a href="{{ url_for('rnd_routes.radj_formulas') }}" style="text-decoration: none;">Risk-adjusted Control</a></li>
+                <li><a href="{{ url_for('rnd_routes.scen_formulas') }}" style="text-decoration: none;">Risk Scenario & Stress</a></li>
+            </ul>
         <li><a>Derivatives</a></li>
         <li><a>FI</a></li>
         <li><a>CFnV</a></li>
