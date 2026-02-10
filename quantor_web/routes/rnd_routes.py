@@ -1,5 +1,5 @@
 from flask import render_template, Blueprint, request, redirect, url_for
-from engine.tvm.basic_tvm import pv_ordinary_due, fv_future_cfs, find_irr, pv_perpetuity, pv_growing_perpetuity, pv_all_kind, fv_all_kind
+from engine.rnd.prob import z_conversion, norm_cdf, inv_cdf
 
 rnd = Blueprint('rnd_routes', __name__, url_prefix='/rnd')
 
@@ -7,6 +7,22 @@ rnd = Blueprint('rnd_routes', __name__, url_prefix='/rnd')
 @rnd.route('/prob_formulas')
 def prob_formulas():
     return render_template('rnd/prob.html')
+
+
+@rnd.route('/prob_formulas',  methods=["POST"])
+def calc_z_score():
+    v = float(request.form["v"])
+    mu = float(request.form["mu"])
+    sig = float(request.form["sig"])
+
+    z_socre = z_conversion(v, mu, sig)
+
+    return render_template('rnd/prob.html', z_socre=f"{z_socre:,}")
+
+
+@rnd.route("/prob_formulas/form_details_1")
+def see_rnd_form_1():
+    return render_template('rnd/formula_details/form_1.html')
 
 
 @rnd.route('/rm_formulas')

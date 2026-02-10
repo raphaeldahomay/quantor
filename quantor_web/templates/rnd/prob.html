@@ -15,3 +15,26 @@
         <p>Log In</p>
         <p>Sign Up</p>
     </header>
+    <hr>
+        <form action="{{ url_for('rnd_routes.calc_z_score') }}" method="post">
+        <fieldset>
+            <legend><strong>Convert to a z-score:</strong></legend>
+            <label for="v">Value to convert (x):</label>
+            <input type="number" id="v" name="v" step="any" required>
+            <label for="mu">Your average (μ):</label>
+            <input type="number" id="mu" name="mu" step="any" required>
+            <label for="sig">Your dispersion (σ):</label>
+            <input type="number" id="sig" name="sig" step="any" required>
+            <button type="submit">Calculate</button><br>
+            {% if z_socre %}
+                <p>The equivalent z-score of your value is <strong>{{z_socre}}</strong></p>
+            {% endif %}
+            <br>
+            <a href="{{ url_for('rnd_routes.see_rnd_form_1') }}">See formula details</a>
+	    </fieldset>
+        </form>
+    <hr>
+    <footer>
+        <p>© 2026 Quantor. All rights reserved.</p>
+    </footer>
+</body>
