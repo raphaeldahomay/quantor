@@ -9,20 +9,60 @@ def prob_formulas():
     return render_template('rnd/prob.html')
 
 
-@rnd.route('/prob_formulas',  methods=["POST"])
+@rnd.route('/prob_formulas/zscore',  methods=["POST"])
 def calc_z_score():
     v = float(request.form["v"])
     mu = float(request.form["mu"])
     sig = float(request.form["sig"])
+    z_score = z_conversion(v, mu, sig)
+    return render_template('rnd/prob.html', z_score=f"{z_score:,}")
 
-    z_socre = z_conversion(v, mu, sig)
 
-    return render_template('rnd/prob.html', z_socre=f"{z_socre:,}")
+@rnd.route('/prob_formulas/std_cdf',  methods=["POST"])
+def calc_std_norm_cdf():
+    z = float(request.form["z"])
+    p_std = norm_cdf(z)
+    return render_template('rnd/prob.html', p_std=f"{p_std:,}")
+
+
+@rnd.route('/prob_formulas/norm_cdf',  methods=["POST"])
+def calc_norm_cdf():
+    z = float(request.form["z"])
+    mu = float(request.form["mu"])
+    sig = float(request.form["sig"])
+    p = norm_cdf(z, mu, sig)
+    return render_template('rnd/prob.html', p=f"{p:,}")
+
+
+@rnd.route('/prob_formulas/std_inv',  methods=["POST"])
+def calc_std_inv_cdf():
+    p = float(request.form["p"])
+    z_std = inv_cdf(p)
+    return render_template('rnd/prob.html', z_std=f"{z_std:,}")
+
+
+@rnd.route('/prob_formulas/norm_inv',  methods=["POST"])
+def calc_inv_cdf():
+    p = float(request.form["p"])
+    mu = float(request.form["mu"])
+    sig = float(request.form["sig"])
+    z = inv_cdf(p, mu, sig)
+    return render_template('rnd/prob.html', z=f"{z:,}")
 
 
 @rnd.route("/prob_formulas/form_details_1")
 def see_rnd_form_1():
     return render_template('rnd/formula_details/form_1.html')
+
+
+@rnd.route("/prob_formulas/form_details_2")
+def see_rnd_form_2():
+    return render_template('rnd/formula_details/form_2.html')
+
+
+@rnd.route("/prob_formulas/form_details_3")
+def see_rnd_form_3():
+    return render_template('rnd/formula_details/form_3.html')
 
 
 @rnd.route('/rm_formulas')

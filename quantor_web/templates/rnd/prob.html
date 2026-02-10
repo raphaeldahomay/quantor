@@ -26,11 +26,73 @@
             <label for="sig">Your dispersion (σ):</label>
             <input type="number" id="sig" name="sig" step="any" required>
             <button type="submit">Calculate</button><br>
-            {% if z_socre %}
-                <p>The equivalent z-score of your value is <strong>{{z_socre}}</strong></p>
+            {% if z_score %}
+                <p>The equivalent z-score of your value is <strong>{{z_score}}</strong></p>
             {% endif %}
             <br>
             <a href="{{ url_for('rnd_routes.see_rnd_form_1') }}">See formula details</a>
+	    </fieldset>
+        </form>
+    <hr>
+        <form action="{{ url_for('rnd_routes.calc_std_norm_cdf') }}" method="post">
+        <fieldset>
+            <legend><strong>Standard normal CDF from a z-score:</strong></legend>
+            <label for="z">z-score (z):</label>
+            <input type="number" id="z" name="z" step="any" required>
+            <button type="submit">Calculate</button><br>
+            {% if p_std %}
+                <p>The probability that your variable falls under z is <strong>{{p_std}}</strong> %</p>
+            {% endif %}
+            <br>
+	    </fieldset>
+        </form>
+        <br>
+        <form action="{{ url_for('rnd_routes.calc_norm_cdf') }}" method="post">
+        <fieldset>
+            <legend><strong>Normal CDF from a z-score, a mean, and a std dev:</strong></legend>
+            <label for="z">z-score (z):</label>
+            <input type="number" id="z" name="z" step="any" required>
+            <label for="mu">Your average (μ):</label>
+            <input type="number" id="mu" name="mu" step="any" required>
+            <label for="sig">Your dispersion (σ):</label>
+            <input type="number" id="sig" name="sig" step="any" required>
+            <button type="submit">Calculate</button><br>
+            {% if p %}
+                <p>The probability that your variable falls under z is <strong>{{p}}</strong> %</p>
+            {% endif %}
+            <br>
+            <a href="{{ url_for('rnd_routes.see_rnd_form_2') }}">See formula details</a>
+	    </fieldset>
+        </form>
+    <hr>
+        <form action="{{ url_for('rnd_routes.calc_std_inv_cdf') }}" method="post">
+        <fieldset>
+            <legend><strong>Find the standard normal z-score:</strong></legend>
+            <label for="p">Your confidence level (p):</label>
+            <input type="number" id="p" name="p" step="any" required>
+            <button type="submit">Calculate</button><br>
+            {% if z_std %}
+                <p>The z-score that gives you this prob is <strong>{{z_std}}</strong></p>
+            {% endif %}
+            <br>
+	    </fieldset>
+        </form>
+    <br>
+        <form action="{{ url_for('rnd_routes.calc_inv_cdf') }}" method="post">
+        <fieldset>
+            <legend><strong>Find the z-score from a CDF, a mean, and a std dev:</strong></legend>
+            <label for="p">Your confidence level (p):</label>
+            <input type="number" id="p" name="p" step="any" required>
+            <label for="mu">Your average (μ):</label>
+            <input type="number" id="mu" name="mu" step="any" required>
+            <label for="sig">Your dispersion (σ):</label>
+            <input type="number" id="sig" name="sig" step="any" required>
+            <button type="submit">Calculate</button><br>
+            {% if z %}
+                <p>The z-score that gives you this prob is <strong>{{z}}</strong></p>
+            {% endif %}
+            <br>
+            <a href="{{ url_for('rnd_routes.see_rnd_form_3') }}">See formula details</a>
 	    </fieldset>
         </form>
     <hr>
