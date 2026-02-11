@@ -1,5 +1,5 @@
 from flask import render_template, Blueprint, request, redirect, url_for
-from engine.rnd.prob import z_conversion, norm_cdf, inv_cdf
+from engine.rnd.prob import z_conversion, norm_cdf, inv_cdf, es_coeff
 
 rnd = Blueprint('rnd_routes', __name__, url_prefix='/rnd')
 
@@ -16,6 +16,15 @@ def calc_z_score():
     sig = float(request.form["sig"])
     z_score = z_conversion(v, mu, sig)
     return render_template('rnd/prob.html', z_score=f"{z_score:,}")
+
+
+@rnd.route('/prob_formulas/es_coeff',  methods=["POST"])
+def calc_es_coeff():
+    p = float(request.form["p"])
+    mu = float(request.form["mu"])
+    sig = float(request.form["sig"])
+    es_c = es_coeff(p, mu, sig)
+    return render_template('rnd/prob.html', es_c=f"{es_c:,}")
 
 
 @rnd.route('/prob_formulas/std_cdf',  methods=["POST"])
@@ -63,6 +72,11 @@ def see_rnd_form_2():
 @rnd.route("/prob_formulas/form_details_3")
 def see_rnd_form_3():
     return render_template('rnd/formula_details/form_3.html')
+
+
+@rnd.route("/prob_formulas/form_details_4")
+def see_rnd_form_4():
+    return render_template('rnd/formula_details/form_4.html')
 
 
 @rnd.route('/rm_formulas')

@@ -18,7 +18,7 @@
     <hr>
         <form action="{{ url_for('rnd_routes.calc_z_score') }}" method="post">
         <fieldset>
-            <legend><strong>Convert to a z-score:</strong></legend>
+            <legend><strong>Convert to a z-score (VaR quantile):</strong></legend>
             <label for="v">Value to convert (x):</label>
             <input type="number" id="v" name="v" step="any" required>
             <label for="mu">Your average (μ):</label>
@@ -33,6 +33,24 @@
             <a href="{{ url_for('rnd_routes.see_rnd_form_1') }}">See formula details</a>
 	    </fieldset>
         </form>
+        <br>
+        <form action="{{ url_for('rnd_routes.calc_es_coeff') }}" method="post">
+        <fieldset>
+            <legend><strong>Find the expected coeff beyond VaR (ES coeff):</strong></legend>
+            <label for="p">Confidence level (p):</label>
+            <input type="number" id="p" name="p" step="any" required>
+            <label for="mu">Your average (μ):</label>
+            <input type="number" id="mu" name="mu" step="any" required>
+            <label for="sig">Your dispersion (σ):</label>
+            <input type="number" id="sig" name="sig" step="any" required>
+            <button type="submit">Calculate</button><br>
+            {% if es_c %}
+                <p>Your ES coefficient is equal to <strong>{{es_c}}</strong></p>
+            {% endif %}
+            <br>
+            <a href="{{ url_for('rnd_routes.see_rnd_form_4') }}">See formula details</a>
+	    </fieldset>
+        </form>
     <hr>
         <form action="{{ url_for('rnd_routes.calc_std_norm_cdf') }}" method="post">
         <fieldset>
@@ -43,7 +61,6 @@
             {% if p_std %}
                 <p>The probability that your variable falls under z is <strong>{{p_std}}</strong> %</p>
             {% endif %}
-            <br>
 	    </fieldset>
         </form>
         <br>
@@ -74,7 +91,6 @@
             {% if z_std %}
                 <p>The z-score that gives you this prob is <strong>{{z_std}}</strong></p>
             {% endif %}
-            <br>
 	    </fieldset>
         </form>
     <br>
