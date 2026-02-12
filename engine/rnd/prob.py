@@ -6,7 +6,7 @@ def norm_cdf(z, mu=0, sig=1):
 
 
 def inv_cdf(p, mu=0, sig=1):
-    return round(norm.ppf(p, loc=mu, scale=sig), 2)
+    return norm.ppf(p, loc=mu, scale=sig)
 
 
 def z_conversion(v, mu, sig):
