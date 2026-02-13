@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RnD Formula Details</title>
+    <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body>
+    <header>
+        <strong>Quantor</strong>
+        <button type="button">
+            <a href="{{ url_for('index') }}" style="text-decoration: none; color: black;">Home</a>
+        </button>
+        <button type="button">
+            <a href="{{ url_for('rnd_routes.rm_formulas') }}" style="text-decoration: none; color: black;">Back</a>
+        </button>
+        <p>Log In</p>
+        <p>Sign Up</p>
+    </header>
+    <hr>
+    <h3>Finding the Variance</h3>
+    <p style="font-size: larger;">
+        \[
+        \mathrm{Var}(X)
+        =
+        \frac{1}{n-1}
+        \sum_{i=1}^{n}
+        \left( x_i - \bar{x} \right)^2  
+        \]
+    </p>
+    <hr>
+    <h3>Finding the Semi-Variance</h3>
+    <p style="font-size: larger;">
+        \[
+        \mathrm{SemiVar}(X)
+        =
+        \frac{1}{n}
+        \sum_{i=1}^{n}
+        \min\left( x_i - \bar{x},\, 0 \right)^2
+        \]
+    </p>
+    <hr>
+    <h3>Finding the Std Dev or Downside Dev</h3>
+    <p style="font-size: larger;">
+        \[
+        \sigma
+        =
+        \sqrt{\mathrm{Var}(X)}
+        \]
+    </p>
+    <p style="font-size: larger;">
+        \[
+        \mathrm{DownDev}
+        =
+        \sqrt{\mathrm{SemiVar}(X)}
+        \]
+    </p>
+    <hr>
+    <footer>
+        <p>© 2026 Quantor. All rights reserved.</p>
+    </footer>
+</body>

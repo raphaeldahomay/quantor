@@ -1,5 +1,6 @@
 from flask import render_template, Blueprint, request, redirect, url_for
 from engine.rnd.prob import z_conversion, norm_cdf, inv_cdf, es_coeff
+from engine.rnd.rm import variance, std_or_downside_dev, semi_var
 
 rnd = Blueprint('rnd_routes', __name__, url_prefix='/rnd')
 
@@ -79,9 +80,42 @@ def see_rnd_form_4():
     return render_template('rnd/formula_details/form_4.html')
 
 
+
+
 @rnd.route('/rm_formulas')
 def rm_formulas():
     return render_template('rnd/rm.html')
+
+
+@rnd.route('/rm_formulas/variance', methods=["POST"])
+def calc_variance():
+    ar = request.form["r"]
+    final_variance = variance(ar)
+    return render_template('rnd/rm.html', final_variance=final_variance)
+
+
+@rnd.route('/rm_formulas/std_dev', methods=["POST"])
+def calc_std_dev():
+    v = float(request.form["v"])
+    final_std = std_or_downside_dev(v)
+    return render_template('rnd/rm.html', final_std=final_std)
+
+
+@rnd.route('/rm_formulas/semi_var', methods=["POST"])
+def calc_semi_var():
+    ar = request.form["r"]
+    if request.form["t"] == "":
+        final_semi_var = semi_var(ar)
+        return render_template('rnd/rm.html', final_semi_var=final_semi_var)
+    t = float(request.form["t"])
+    final_semi_var = semi_var(ar, tgt=t)
+    return render_template('rnd/rm.html', final_semi_var=final_semi_var)
+
+
+@rnd.route("/prob_formulas/form_details_5")
+def see_rnd_form_5():
+    return render_template('rnd/formula_details/form_5.html')
+
 
 
 @rnd.route('/dnr_formulas')

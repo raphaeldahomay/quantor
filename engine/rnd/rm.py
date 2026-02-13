@@ -1,20 +1,54 @@
 import math
 
-def var(array: list):
-    n = len(array)
-    mean_a = sum(array) / n
-    var = sum((xi - mean_a)**2 for xi in array) / (n - 1)
-    return round(var, 4) 
+def variance(array):
+    new_array = []
+    if " " and "," in array:
+        array_adj = array.strip().split(",")
+        for i in array_adj:
+            new_array.append(float(i))
+    elif " " in array:
+        array_adj = array.strip().split()
+        new_array = [float(i) for i in array_adj]
+    elif "," in array:
+        array_adj = array.strip().split(",")
+        new_array = [float(i) for i in array_adj]
+    elif "\t" in array:
+        array_adj = array.strip().split("\t")
+        new_array = [float(i) for i in array_adj]
+    elif "\n" in array:
+        array_adj = array.strip().split("\t")
+        new_array = [float(i) for i in array_adj]
+    n = len(new_array)
+    mean_a = sum(new_array) / n
+    var = sum((xi - mean_a)**2 for xi in new_array) / (n - 1)
+    return round(var, 6) 
 
 
 def std_or_downside_dev(x):
     return round(math.sqrt(x) * 100, 2)
 
 
-def semi_var(array: list, tgt=None):
-    n = len(array)
-    mean_a = sum(array) / n
-    if tgt:
-        var = sum(min(0, (xi - tgt))**2 for xi in array) / (n - 1)
-    var = sum(min(0, (xi - mean_a))**2 for xi in array) / (n - 1)
-    return round(var, 4)
+def semi_var(array, tgt=None):
+    new_array = []
+    if " " and "," in array:
+        array_adj = array.strip().split(",")
+        for i in array_adj:
+            new_array.append(float(i))
+    elif " " in array:
+        array_adj = array.strip().split()
+        new_array = [float(i) for i in array_adj]
+    elif "," in array:
+        array_adj = array.strip().split(",")
+        new_array = [float(i) for i in array_adj]
+    elif "\t" in array:
+        array_adj = array.strip().split("\t")
+        new_array = [float(i) for i in array_adj]
+    elif "\n" in array:
+        array_adj = array.strip().split("\t")
+        new_array = [float(i) for i in array_adj]
+    n = len(new_array)
+    mean_a = sum(new_array) / n
+    if tgt is not None:
+        var = sum(min(0, (xi - tgt))**2 for xi in new_array) / (n - 1)
+    var = sum(min(0, (xi - mean_a))**2 for xi in new_array) / (n - 1)
+    return round(var, 6)

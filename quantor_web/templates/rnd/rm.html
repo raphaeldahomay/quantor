@@ -15,7 +15,47 @@
         <p>Log In</p>
         <p>Sign Up</p>
     </header>
-    
+    <hr>
+        <form action="{{ url_for('rnd_routes.calc_variance') }}" method="post">
+        <fieldset>
+            <legend><strong>Calculate a Variance:</strong></legend>
+            <label for="r">Your inputs (separated with a comma, a space, or both only):</label>
+            <input type="text" id="r" name="r" required>
+            <button type="submit">Calculate</button><br>
+            {% if final_variance %}
+                <p>The variance of your sequency is <strong>{{final_variance}}</strong></p>
+            {% endif %}
+	    </fieldset>
+        </form>
+    <br>
+        <form action="{{ url_for('rnd_routes.calc_semi_var') }}" method="post">
+        <fieldset>
+            <legend><strong>Calculate the semi-variance:</strong></legend>
+            <label for="r">Your inputs (separated with a comma, a space, or both only):</label>
+            <input type="text" id="r" name="r" required>
+            <label for="t">Your target (optional; default = mean):</label>
+            <input type="number" id="t" name="t" step="any">
+            <button type="submit">Calculate</button><br>
+            {% if final_semi_var %}
+                <p>The semi-variance of your frequency is <strong>{{final_semi_var}}</strong></p>
+            {% endif %}
+	    </fieldset>
+        </form>
+    <br>
+        <form action="{{ url_for('rnd_routes.calc_std_dev') }}" method="post">
+        <fieldset>
+            <legend><strong>Find the Standard Dev from Variance, or the Downside Dev from Semi-Variance:</strong></legend>
+            <label for="v">Your Variance or Semi-Variance (v):</label>
+            <input type="number" id="v" name="v" step="any" required>
+            <button type="submit">Calculate</button><br>
+            {% if final_std %}
+                <p>The std dev or downside dev is <strong>{{final_std}}</strong> %</p>
+            {% endif %}
+	    </fieldset>
+        </form>
+    <br>
+        <a href="{{ url_for('rnd_routes.see_rnd_form_5') }}">See formula details</a>
+    <hr>
     <footer>
         <p>© 2026 Quantor. All rights reserved.</p>
     </footer>
