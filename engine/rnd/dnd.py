@@ -1,36 +1,53 @@
-from engine.rnd.rm import var, std_or_downside_dev
+from engine.rnd.rm import variance, std_or_downside_dev
 import numpy as np
 
-def cov(list_1: list, list_2: list):
-    if len(list_1) != len(list_2):
+def cov(array_1, array_2):
+    big_array = [array_1, array_2]
+    new_array = []
+    for a in big_array:
+        if " " and "," in a:
+            array_adj = a.strip().split(",")
+            new_array.append([float(i) for i in array_adj])
+        elif " " in a:
+            array_adj = a.strip().split()
+            new_array.append([float(i) for i in array_adj])
+        elif "," in a:
+            array_adj = a.strip().split(",")
+            new_array.append([float(i) for i in array_adj])
+        elif "\t" in a:
+            array_adj = a.strip().split("\t")
+            new_array.append([float(i) for i in array_adj])
+        elif "\n" in a:
+            array_adj = a.strip().split("\t")
+            new_array.append([float(i) for i in array_adj])
+    if len(new_array[0]) != len(new_array[1]):
         return "your inputs must be of the same length"
-    n = len(list_1)
-    mean_x = sum(list_1) / n
-    mean_y = sum(list_2) / n
-    cov = sum((xi - mean_x)*(yi - mean_y) for xi, yi in zip(list_1, list_2)) / (n - 1)
+    n = len(new_array[0])
+    mean_x = sum(new_array[0]) / n
+    mean_y = sum(new_array[1]) / n
+    cov = sum((xi - mean_x)*(yi - mean_y) for xi, yi in zip(new_array[0], new_array[1])) / (n - 1)
     return round(cov, 4)
 
 
-def corr(list_1, list_2):
-    if len(list_1) != len(list_2):
+def corr(array_1, array_2):
+    cova = cov(array_1, array_2)
+    if type(cova) == str:
         return "your inputs must be of the same length"
-    cova = cov(list_1, list_2)
-    std_1 = std_or_downside_dev(var(list_1)) / 100
-    std_2 = std_or_downside_dev(var(list_2)) / 100
+    std_1 = std_or_downside_dev(variance(array_1)) / 100
+    std_2 = std_or_downside_dev(variance(array_2)) / 100
     return round(cova / (std_1 * std_2), 2)
 
 
-def cov_matrix(str_returns):
-    rows = str_returns.strip().split("\n")
-    table = [r.split("\t") for r in rows]
-    clean_table = np.array(table, dtype=float) # n observations x n assets
-    assets = np.array([clean_table[:, j] for j in range(clean_table.shape[1])]) # n assets x n observations
-    mean_col = np.array([np.mean(assets[j, :]) for j in range(assets.shape[0])]) # (n_assets,)
-    col_1 = np.ones((mean_col.shape[0], 1)) # n assets x 1
-    mean_col = mean_col.reshape(1, -1) # (1, n_assets)
-    first_p = (assets - (col_1 @ mean_col)) . T
-    second_p = assets - (col_1 @ mean_col)
-    return np.round((1 / (assets.shape[1] - 1)) * (first_p @ second_p), 4)
+def cov_matrix(str_returns, v_format="column"):
+    if v_format == "column":
+        rows = str_returns.strip().split("\n")
+        table = [r.split("\t") for r in rows]
+        clean_table = np.array(table, dtype=float) # n obs x n assets
+    mean_col = np.array([np.mean(clean_table[:, j]) for j in range(clean_table.shape[1])]).reshape(1, -1) # 1 x n assets
+    col_1 = np.ones(shape=(clean_table.shape[0], 1)) # n obs x 1
+    first_p = (clean_table - (col_1 @ mean_col)) . T
+    second_p = clean_table - (col_1 @ mean_col)
+    return np.round((1 / (clean_table.shape[0] - 1)) * (first_p @ second_p), 4)
 
 
 def port_var_f_mat(str_returns, weights):
