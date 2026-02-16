@@ -118,14 +118,15 @@ def see_rnd_form_5():
 
 
 
-@rnd.route('/dnr_formulas')
-def dnr_formulas():
-    return render_template('rnd/dnr.html')
-
 
 @rnd.route('/dnd_formulas')
 def dnd_formulas():
     return render_template('rnd/dnd.html')
+
+
+@rnd.route('/dnr_formulas')
+def dnr_formulas():
+    return render_template('rnd/dnr.html')
 
 
 @rnd.route('/tail_formulas')
