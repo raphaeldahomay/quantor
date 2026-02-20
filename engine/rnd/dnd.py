@@ -72,3 +72,5 @@ def port_var_hand_2_assets(list_r_1, list_r_2, w_list):
     )
     return round(result, 8)
 
+
+# Add the formula for diversification effect

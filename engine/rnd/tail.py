@@ -3,6 +3,7 @@ from engine.rnd.prob import inv_cdf
 from engine.rnd.rm import std_or_downside_dev
 import numpy as np
 
+
 def var_f_mat(returns, weights, conf):
     p_var = port_var_f_mat(returns, weights)
     row = returns.strip().split("\n")
@@ -19,3 +20,7 @@ def var_f_mat(returns, weights, conf):
     std = std_or_downside_dev(p_var) / 100
     phi = inv_cdf(conf, mu, std)
     return (std * phi) - mu
+
+
+# Add formula of standard VaR, CVaR, Historical VaR, 
+# Add formula of matrix ES, standard ES, Historical ES

@@ -52,3 +52,6 @@ def semi_var(array, tgt=None):
         var = sum(min(0, (xi - tgt))**2 for xi in new_array) / (n - 1)
     var = sum(min(0, (xi - mean_a))**2 for xi in new_array) / (n - 1)
     return round(var, 6)
+
+
+# Add formula of coefficient of variation
