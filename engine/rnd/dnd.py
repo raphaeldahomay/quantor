@@ -73,4 +73,19 @@ def port_var_hand_2_assets(list_r_1, list_r_2, w_list):
     return round(result, 8)
 
 
-# Add the formula for diversification effect
+def div_effect(str_returns, weights, v_format="column"):
+    cov_mat = cov_matrix(str_returns, v_format)
+    size = cov_mat.shape[0]
+    std_list = [(std_or_downside_dev(cov_mat[i, i]) / 100) for i in range(size)]
+    std_list_adj = np.array(std_list)
+    if "\n" in weights:
+        row = weights.strip().split("\n")
+    elif "\t" in weights:
+        row = weights.strip().split("\t")
+    else:
+        row_adj = weights.strip().split(",")
+        row = [i.strip() for i in row_adj]
+    clean_table = np.array(row, dtype=float).reshape(-1, 1)
+    agg_std = std_list_adj @ clean_table
+    port_std = std_or_downside_dev(port_var_f_mat(str_returns, weights, v_format)) / 100
+    return agg_std - port_std
