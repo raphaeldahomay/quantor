@@ -2,6 +2,7 @@ from engine.rnd.rm import variance
 import math
 import re
 
+# Modify formula, so they can be used for multiple assets (pot) too
 
 def skewness(array):
     var = variance(array)

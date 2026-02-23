@@ -1,9 +1,13 @@
 from flask import render_template, Blueprint, request, redirect, url_for
 from engine.rnd.prob import z_conversion, norm_cdf, inv_cdf, es_coeff
 from engine.rnd.rm import variance, std_or_downside_dev, semi_var
+from engine.rnd.dnd import corr, cov, cov_matrix, port_var_f_mat, port_var_hand_2_assets, div_effect
+from engine.rnd.dr import skewness, kurtosis
 
 rnd = Blueprint('rnd_routes', __name__, url_prefix='/rnd')
 
+
+# < ---- All routes related to Uncertainty Modeling ---- >
 
 @rnd.route('/prob_formulas')
 def prob_formulas():
@@ -81,6 +85,7 @@ def see_rnd_form_4():
 
 
 
+# < ---- All routes related to Risk Measurement ---- >
 
 @rnd.route('/rm_formulas')
 def rm_formulas():
@@ -118,15 +123,99 @@ def see_rnd_form_5():
 
 
 
+# < ---- All routes related to Dependence Risk & Diversification ---- >
 
 @rnd.route('/dnd_formulas')
 def dnd_formulas():
     return render_template('rnd/dnd.html')
 
 
-@rnd.route('/dnr_formulas')
-def dnr_formulas():
-    return render_template('rnd/dnr.html')
+@rnd.route('/dnd_formulas/covariance', methods=["POST"])
+def calc_covariance():
+    ar_1 = request.form["ar_1"]
+    ar_2 = request.form["ar_2"]
+    result_cov = cov(ar_1, ar_2)
+    return render_template('rnd/dnd.html', result_cov=result_cov)
+
+
+@rnd.route('/dnd_formulas/corr', methods=["POST"])
+def calc_corr():
+    ar_1 = request.form["ar_1"]
+    ar_2 = request.form["ar_2"]
+    result_corr = corr(ar_1, ar_2)
+    return render_template('rnd/dnd.html', result_corr=result_corr)
+
+
+@rnd.route('/dnd_formulas/cov_mat', methods=["POST"])
+def calc_cov_mat():
+    array_s = request.form["array_s"]
+    forma = request.form["forma"]
+    result_cov_mat = cov_matrix(array_s, forma)
+    return render_template('rnd/dnd.html', result_cov_mat=result_cov_mat)
+
+
+@rnd.route('/dnd_formulas/port_var_mat', methods=["POST"])
+def calc_port_var_mat():
+    array_s = request.form["array_s"]
+    weigh = request.form["weigh"]
+    forma = request.form["forma"]
+    result_port_var_mat = port_var_f_mat(array_s, weigh, forma)
+    return render_template('rnd/dnd.html', result_port_var_mat=result_port_var_mat)
+
+
+@rnd.route('/dnd_formulas/port_var_2_assets', methods=["POST"])
+def calc_port_var_2_assets():
+    ar_1 = request.form["ar_1"]
+    ar_2 = request.form["ar_2"]
+    weigh = request.form["weigh"]
+    result_port_var_2_assets = port_var_hand_2_assets(ar_1, ar_2, weigh)
+    return render_template('rnd/dnd.html', result_port_var_2_assets=result_port_var_2_assets)
+
+
+@rnd.route('/dnd_formulas/div_effect', methods=["POST"])
+def calc_div_effect():
+    array_s = request.form["array_s"]
+    weigh = request.form["weigh"]
+    forma = request.form["forma"]
+    result_div_effect = div_effect(array_s, weigh, forma)
+    return render_template('rnd/dnd.html', result_div_effect=result_div_effect)
+
+
+@rnd.route("/prob_formulas/form_details_dnd")
+def see_rnd_form_dnd():
+    return render_template('rnd/formula_details/form_dnd.html')
+
+
+
+
+# < ---- All routes related to Distribution Risk ---- >
+
+@rnd.route('/dr_formulas')
+def dr_formulas():
+    return render_template('rnd/dr.html')
+
+
+@rnd.route('/dr_formulas/skewness', methods=["POST"])
+def calc_skewness():
+    ar_1 = request.form["ar_1"]
+    ar_2 = request.form["ar_2"]
+    result_skew = cov(ar_1, ar_2)
+    return render_template('rnd/dnd.html', result_skew=result_skew)
+
+
+@rnd.route('/dr_formulas/kurtosis', methods=["POST"])
+def calc_kurtosis():
+    ar_1 = request.form["ar_1"]
+    ar_2 = request.form["ar_2"]
+    result_kurt = cov(ar_1, ar_2)
+    return render_template('rnd/dnd.html', result_kurt=result_kurt)
+
+
+@rnd.route("/prob_formulas/form_details_dr")
+def see_rnd_form_dr():
+    return render_template('rnd/formula_details/form_dr.html')
+
+
 
 
 @rnd.route('/tail_formulas')
@@ -134,9 +223,7 @@ def tail_formulas():
     return render_template('rnd/tail.html')
 
 
-@rnd.route('/radj_formulas')
-def radj_formulas():
-    return render_template('rnd/radj.html')
+
 
 
 @rnd.route('/scen_formulas')

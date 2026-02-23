@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RnD Formula Details</title>
+    <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body>
+    <header>
+        <strong>Quantor</strong>
+        <button type="button">
+            <a href="{{ url_for('index') }}" style="text-decoration: none; color: black;">Home</a>
+        </button>
+        <button type="button">
+            <a href="{{ url_for('rnd_routes.dnd_formulas') }}" style="text-decoration: none; color: black;">Back</a>
+        </button>
+        <p>Log In</p>
+        <p>Sign Up</p>
+    </header>
+    <hr>
+    <h3>Finding the Covariance</h3>
+    <p style="font-size: larger;">
+        \[
+        \operatorname{Cov}(X,Y)
+        =
+        \frac{1}{n-1}
+        \sum_{i=1}^{n}
+        \left(X_i - \bar{X}\right)
+        \left(Y_i - \bar{Y}\right)
+        \]
+    </p>
+    <hr>
+    <h3>Finding the Correlation</h3>
+    <p style="font-size: larger;">
+        \[
+        \rho_{X,Y}
+        =
+        \frac{\operatorname{Cov}(X,Y)}
+        {\sigma_X \sigma_Y}
+        \]
+    </p>
+    <hr>
+    <h3>Finding the Covariance Matrix (for n assets)</h3>
+    <p style="font-size: larger;">
+        \[
+        \Sigma =
+        \begin{pmatrix}
+        \sigma_1^2 & \operatorname{Cov}(1,2) & \cdots & \operatorname{Cov}(1,n) \\
+        \operatorname{Cov}(2,1) & \sigma_2^2 & \cdots & \operatorname{Cov}(2,n) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \operatorname{Cov}(n,1) & \operatorname{Cov}(n,2) & \cdots & \sigma_n^2
+        \end{pmatrix}
+        \]
+    </p>
+    <hr>
+    <h3>Finding the Variance of a portfolio </h3>
+    <h4>(Matrix form)</h4>
+    <p style="font-size: larger;">
+        \[
+        \sigma_p^2
+        =
+        \mathbf{w}^\top
+        \Sigma
+        \mathbf{w}
+        \]
+    </p>
+    <h4>(Standard form)</h4>
+    <p style="font-size: larger;">
+        \[
+        \sigma_p^2
+        =
+        \sum_{i=1}^{n}
+        \sum_{j=1}^{n}
+        w_i w_j \operatorname{Cov}(i,j)
+        \]
+    </p>
+    <hr>
+    <h3>Finding the Variance of a 2-asset portfolio </h3>
+    <p style="font-size: larger;">
+        \[
+        \sigma_p^2
+        =
+        w_1^2 \sigma_1^2
+        +
+        w_2^2 \sigma_2^2
+        +
+        2 w_1 w_2 \operatorname{Cov}(1,2)
+        \]
+    </p>
+    <hr>
+    <h3>Finding the Diversification effect </h3>
+    <p style="font-size: larger;">
+        \[
+        \text{Diversification Effect}
+        =
+        \left(
+        \sum_{i=1}^{n} w_i \sigma_i
+        \right)
+        -
+        \sigma_p
+        \]
+    </p>
+    <hr>
+    <footer>
+        <p>© 2026 Quantor. All rights reserved.</p>
+    </footer>
+</body>

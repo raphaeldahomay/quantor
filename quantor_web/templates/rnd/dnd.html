@@ -16,45 +16,107 @@
         <p>Sign Up</p>
     </header>
     <hr>
-        <form action="{{ url_for('rnd_routes.calc_variance') }}" method="post">
+        <form action="{{ url_for('rnd_routes.calc_covariance') }}" method="post">
         <fieldset>
-            <legend><strong>Calculate a Variance:</strong></legend>
-            <label for="r">Your inputs (separated with a comma, a space, or both only):</label>
-            <input type="text" id="r" name="r" required>
+            <legend><strong>Calculate a Covariance:</strong></legend>
+            <label for="ar_1">Your first array:</label>
+            <input type="text" id="ar_1" name="ar_1" required>
+            <label for="ar_2">Your first array:</label>
+            <input type="text" id="ar_2" name="ar_2" required>
             <button type="submit">Calculate</button><br>
-            {% if final_variance %}
-                <p>The variance of your sequency is <strong>{{final_variance}}</strong></p>
+            {% if result_cov %}
+                <p>The covariance between your two assets is <strong>{{result_cov}}</strong></p>
             {% endif %}
 	    </fieldset>
         </form>
     <br>
-        <form action="{{ url_for('rnd_routes.calc_semi_var') }}" method="post">
+        <form action="{{ url_for('rnd_routes.calc_corr') }}" method="post">
         <fieldset>
-            <legend><strong>Calculate the semi-variance:</strong></legend>
-            <label for="r">Your inputs (separated with a comma, a space, or both only):</label>
-            <input type="text" id="r" name="r" required>
-            <label for="t">Your target (optional; default = mean):</label>
-            <input type="number" id="t" name="t" step="any">
+            <legend><strong>Calculate a Correlation:</strong></legend>
+            <label for="ar_1">Your first array:</label>
+            <input type="text" id="ar_1" name="ar_1" required>
+            <label for="ar_2">Your first array:</label>
+            <input type="text" id="ar_2" name="ar_2" required>
             <button type="submit">Calculate</button><br>
-            {% if final_semi_var %}
-                <p>The semi-variance of your frequency is <strong>{{final_semi_var}}</strong></p>
+            {% if result_corr %}
+                <p>The Correlation between your two assets is <strong>{{result_corr}}</strong></p>
             {% endif %}
 	    </fieldset>
         </form>
     <br>
-        <form action="{{ url_for('rnd_routes.calc_std_dev') }}" method="post">
+        <!-- Verify these kind of formulas to be sure what's the format retrieved from the user.-->
+        <form action="{{ url_for('rnd_routes.calc_cov_mat') }}" method="post">
         <fieldset>
-            <legend><strong>Find the Standard Dev from Variance, or the Downside Dev from Semi-Variance:</strong></legend>
-            <label for="v">Your Variance or Semi-Variance (v):</label>
-            <input type="number" id="v" name="v" step="any" required>
+            <legend><strong>Find a covariance matrix:</strong></legend>
+            <label for="array_s">Paste your entire arrays:</label>
+            <input type="text" id="array_s" name="array_s" required>
+            <label for="forma">Select the format of your data (e.g. "column": n columns = n assets):</label>
+            <select name="forma">
+                <option value="column">Column</option>
+                <option value="row">Row</option>
+            </select>
             <button type="submit">Calculate</button><br>
-            {% if final_std %}
-                <p>The std dev or downside dev is <strong>{{final_std}}</strong> %</p>
+            {% if result_cov_mat %}
+                <p>Here's the covariance matrix from your data <strong>{{result_cov_mat}}</strong></p>
             {% endif %}
 	    </fieldset>
         </form>
     <br>
-        <a href="{{ url_for('rnd_routes.see_rnd_form_5') }}">See formula details</a>
+        <form action="{{ url_for('rnd_routes.calc_port_var_mat') }}" method="post">
+        <fieldset>
+            <legend><strong>Find the variance of a portfolio:</strong></legend>
+            <label for="array_s">Paste your entire arrays:</label>
+            <input type="text" id="array_s" name="array_s" required>
+            <label for="weigh">Paste your weights:</label>
+            <input type="text" id="weigh" name="weigh" required>
+            <label for="forma">Select the format of your data (e.g. "column": n columns = n assets):</label>
+            <select name="forma">
+                <option value="column">Column</option>
+                <option value="row">Row</option>
+            </select>
+            <button type="submit">Calculate</button><br>
+            {% if result_port_var_mat %}
+                <p>The Variance of your portfolio is <strong>{{result_port_var_mat}}</strong></p>
+            {% endif %}
+	    </fieldset>
+        </form>
+    <br>
+        <form action="{{ url_for('rnd_routes.calc_port_var_2_assets') }}" method="post">
+        <fieldset>
+            <legend><strong>Calculate the variance of a 2-asset portfolio:</strong></legend>
+            <label for="ar_1">Your first array:</label>
+            <input type="text" id="ar_1" name="ar_1" required>
+            <label for="ar_2">Your first array:</label>
+            <input type="text" id="ar_2" name="ar_2" required>
+            <label for="weigh">Paste your weights:</label>
+            <input type="text" id="weigh" name="weigh" required>
+            <button type="submit">Calculate</button><br>
+            {% if result_port_var_2_assets %}
+                <p>The variance of your portfolio is <strong>{{result_port_var_2_assets}}</strong></p>
+            {% endif %}
+	    </fieldset>
+        </form>
+    <br>
+        <form action="{{ url_for('rnd_routes.calc_div_effect') }}" method="post">
+        <fieldset>
+            <legend><strong>Find the the diversification effect of your port:</strong></legend>
+            <label for="array_s">Paste your entire arrays:</label>
+            <input type="text" id="array_s" name="array_s" required>
+            <label for="weigh">Paste your weights:</label>
+            <input type="text" id="weigh" name="weigh" required>
+            <label for="forma">Select the format of your data (e.g. "column": n columns = n assets):</label>
+            <select name="forma">
+                <option value="column">Column</option>
+                <option value="row">Row</option>
+            </select>
+            <button type="submit">Calculate</button><br>
+            {% if result_div_effect %}
+                <p>The Variance of your portfolio is <strong>{{result_div_effect}}</strong></p>
+            {% endif %}
+	    </fieldset>
+        </form>
+    <br>
+        <a href="{{ url_for('rnd_routes.see_rnd_form_dnd') }}">See formula details</a>
     <hr>
     <footer>
         <p>© 2026 Quantor. All rights reserved.</p>
