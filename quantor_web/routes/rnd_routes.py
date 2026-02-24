@@ -1,4 +1,5 @@
 from flask import render_template, Blueprint, request, redirect, url_for
+import numpy as np
 from engine.rnd.prob import z_conversion, norm_cdf, inv_cdf, es_coeff
 from engine.rnd.rm import variance, std_or_downside_dev, semi_var
 from engine.rnd.dnd import corr, cov, cov_matrix, port_var_f_mat, port_var_hand_2_assets, div_effect
@@ -127,7 +128,8 @@ def see_rnd_form_5():
 
 @rnd.route('/dnd_formulas')
 def dnd_formulas():
-    return render_template('rnd/dnd.html')
+    result_cov_mat = None
+    return render_template('rnd/dnd.html', result_cov_mat=result_cov_mat)
 
 
 @rnd.route('/dnd_formulas/covariance', methods=["POST"])
@@ -150,7 +152,7 @@ def calc_corr():
 def calc_cov_mat():
     array_s = request.form["array_s"]
     forma = request.form["forma"]
-    result_cov_mat = cov_matrix(array_s, forma)
+    result_cov_mat = np.array2string(cov_matrix(array_s, forma), precision=6, suppress_small=True)
     return render_template('rnd/dnd.html', result_cov_mat=result_cov_mat)
 
 

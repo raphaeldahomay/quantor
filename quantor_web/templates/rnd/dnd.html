@@ -44,12 +44,11 @@
 	    </fieldset>
         </form>
     <br>
-        <!-- Verify these kind of formulas to be sure what's the format retrieved from the user.-->
         <form action="{{ url_for('rnd_routes.calc_cov_mat') }}" method="post">
         <fieldset>
             <legend><strong>Find a covariance matrix:</strong></legend>
             <label for="array_s">Paste your entire arrays:</label>
-            <input type="text" id="array_s" name="array_s" required>
+            <textarea id="array_s" name="array_s"></textarea>
             <label for="forma">Select the format of your data (e.g. "column": n columns = n assets):</label>
             <select name="forma">
                 <option value="column">Column</option>
@@ -57,7 +56,7 @@
             </select>
             <button type="submit">Calculate</button><br>
             {% if result_cov_mat %}
-                <p>Here's the covariance matrix from your data <strong>{{result_cov_mat}}</strong></p>
+                <p>Here's the covariance matrix from your data: <strong><pre>{{result_cov_mat}}</pre></strong></p>
             {% endif %}
 	    </fieldset>
         </form>
@@ -66,7 +65,7 @@
         <fieldset>
             <legend><strong>Find the variance of a portfolio:</strong></legend>
             <label for="array_s">Paste your entire arrays:</label>
-            <input type="text" id="array_s" name="array_s" required>
+            <textarea id="array_s" name="array_s"></textarea>
             <label for="weigh">Paste your weights:</label>
             <input type="text" id="weigh" name="weigh" required>
             <label for="forma">Select the format of your data (e.g. "column": n columns = n assets):</label>
@@ -101,7 +100,7 @@
         <fieldset>
             <legend><strong>Find the the diversification effect of your port:</strong></legend>
             <label for="array_s">Paste your entire arrays:</label>
-            <input type="text" id="array_s" name="array_s" required>
+            <textarea id="array_s" name="array_s"></textarea>
             <label for="weigh">Paste your weights:</label>
             <input type="text" id="weigh" name="weigh" required>
             <label for="forma">Select the format of your data (e.g. "column": n columns = n assets):</label>
@@ -111,7 +110,7 @@
             </select>
             <button type="submit">Calculate</button><br>
             {% if result_div_effect %}
-                <p>The Variance of your portfolio is <strong>{{result_div_effect}}</strong></p>
+                <p>Mixing the assets in a port makes you reduce your variance by: <strong>{{result_div_effect}}</strong></p>
             {% endif %}
 	    </fieldset>
         </form>
