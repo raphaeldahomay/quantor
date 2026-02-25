@@ -15,7 +15,82 @@
         <p>Log In</p>
         <p>Sign Up</p>
     </header>
-    
+    <hr>
+        <form action="{{ url_for('rnd_routes.calc_skewness_sing') }}" method="post">
+        <fieldset>
+            <legend><strong>Calculate the Skewness of an Asset:</strong></legend>
+            <label for="ar_1">Your array:</label>
+            <input type="text" id="ar_1" name="ar_1" required>
+            <button type="submit">Calculate</button><br>
+            {% if result_skew_s != 0 %}
+                <p>The Skewness of your Asset return is <strong>{{result_skew_s}}</strong></p>
+            {% elif result_skew_s == 0 %}
+                <p>Your Skewness is near 0, add more historical data.</p>
+            {% endif %}
+	    </fieldset>
+        </form>
+    <br>
+    <hr>
+        <form action="{{ url_for('rnd_routes.calc_skewness_multip') }}" method="post">
+        <fieldset>
+            <legend><strong>Calculate the Skewness of a multiple Asset Portfolio:</strong></legend>
+            <label for="ar_1">Paste your entire arrays:</label>
+            <textarea id="ar_1" name="ar_1"></textarea>
+            <label for="weigh">Your weights (or position):</label>
+            <input type="text" id="weigh" name="weigh" required>
+            <label for="forma">Select the format of your data (e.g. "column": n columns = n assets):</label>
+            <select name="forma">
+                <option value="column">Column</option>
+                <option value="row">Row</option>
+            </select>
+            <button type="submit">Calculate</button><br>
+            {% if result_skew_m != 0 %}
+                <p>The Skewness of your portfolio is <strong>{{result_skew_m}}</strong></p>
+            {% elif result_skew_m == 0 %}
+                <p>Your Skewness is near 0, add more historical data.</p>
+            {% endif %}
+	    </fieldset>
+        </form>
+    <br>
+    <hr>
+        <form action="{{ url_for('rnd_routes.calc_kurtosis_sing') }}" method="post">
+        <fieldset>
+            <legend><strong>Calculate the Kurtosis of your Asset:</strong></legend>
+            <label for="ar_1">Your array:</label>
+            <input type="text" id="ar_1" name="ar_1" required>
+            <button type="submit">Calculate</button><br>
+            {% if result_kurt_s != 0 %}
+                <p>The Kurtosis of your Asset return is <strong>{{result_kurt_s}}</strong></p>
+            {% elif result_kurt_s == 0 %}
+                <p>Your Kurtosis is near 3, add more historical data.</p>
+            {% endif %}
+	    </fieldset>
+        </form>
+    <br>
+    <hr>
+        <form action="{{ url_for('rnd_routes.calc_kurtosis_multip') }}" method="post">
+        <fieldset>
+            <legend><strong>Calculate the Kurtosis of a multiple Asset Portfolio:</strong></legend>
+            <label for="ar_1">Paste your entire arrays:</label>
+            <textarea id="ar_1" name="ar_1"></textarea>
+            <label for="weigh">Your weights (or position):</label>
+            <input type="text" id="weigh" name="weigh" required>
+            <label for="forma">Select the format of your data (e.g. "column": n columns = n assets):</label>
+            <select name="forma">
+                <option value="column">Column</option>
+                <option value="row">Row</option>
+            </select>
+            <button type="submit">Calculate</button><br>
+            {% if result_kurt_m != 0 %}
+                <p>The Kurtosis of your portfolio is <strong>{{result_kurt_m}}</strong></p>
+            {% elif result_kurt_m == 0 %}
+                <p>Your Kurtosis is near 3, add more historical data.</p>
+            {% endif %}
+	    </fieldset>
+        </form>
+    <br>
+        <a href="{{ url_for('rnd_routes.see_rnd_form_dr') }}">See formula details</a>
+    <hr>
     <footer>
         <p>© 2026 Quantor. All rights reserved.</p>
     </footer>

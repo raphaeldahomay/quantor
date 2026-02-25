@@ -3,7 +3,7 @@ import numpy as np
 from engine.rnd.prob import z_conversion, norm_cdf, inv_cdf, es_coeff
 from engine.rnd.rm import variance, std_or_downside_dev, semi_var
 from engine.rnd.dnd import corr, cov, cov_matrix, port_var_f_mat, port_var_hand_2_assets, div_effect
-from engine.rnd.dr import skewness, kurtosis
+from engine.rnd.dr import skewness_multiple, skewness_single, kurtosis_multiple, kurtosis_single
 
 rnd = Blueprint('rnd_routes', __name__, url_prefix='/rnd')
 
@@ -86,6 +86,7 @@ def see_rnd_form_4():
 
 
 
+
 # < ---- All routes related to Risk Measurement ---- >
 
 @rnd.route('/rm_formulas')
@@ -121,6 +122,7 @@ def calc_semi_var():
 @rnd.route("/prob_formulas/form_details_5")
 def see_rnd_form_5():
     return render_template('rnd/formula_details/form_5.html')
+
 
 
 
@@ -197,20 +199,36 @@ def dr_formulas():
     return render_template('rnd/dr.html')
 
 
-@rnd.route('/dr_formulas/skewness', methods=["POST"])
-def calc_skewness():
+@rnd.route('/dr_formulas/skewness_single', methods=["POST"])
+def calc_skewness_sing():
     ar_1 = request.form["ar_1"]
-    ar_2 = request.form["ar_2"]
-    result_skew = cov(ar_1, ar_2)
-    return render_template('rnd/dnd.html', result_skew=result_skew)
+    result_skew_s = skewness_single(ar_1)
+    return render_template('rnd/dr.html', result_skew_s=result_skew_s)
 
 
-@rnd.route('/dr_formulas/kurtosis', methods=["POST"])
-def calc_kurtosis():
+@rnd.route('/dr_formulas/skewness_multiple', methods=["POST"])
+def calc_skewness_multip():
     ar_1 = request.form["ar_1"]
-    ar_2 = request.form["ar_2"]
-    result_kurt = cov(ar_1, ar_2)
-    return render_template('rnd/dnd.html', result_kurt=result_kurt)
+    weigh = request.form["weigh"]
+    forma = request.form["forma"]
+    result_skew_m = skewness_multiple(ar_1, weigh, forma)
+    return render_template('rnd/dr.html', result_skew_m=result_skew_m)
+
+
+@rnd.route('/dr_formulas/kurtosis_single', methods=["POST"])
+def calc_kurtosis_sing():
+    ar_1 = request.form["ar_1"]
+    result_kurt_s = kurtosis_single(ar_1)
+    return render_template('rnd/dr.html', result_kurt_s=result_kurt_s)
+
+
+@rnd.route('/dr_formulas/kurtosis_multiple', methods=["POST"])
+def calc_kurtosis_multip():
+    ar_1 = request.form["ar_1"]
+    weigh = request.form["weigh"]
+    forma = request.form["forma"]
+    result_kurt_m = kurtosis_multiple(ar_1, weigh, forma)
+    return render_template('rnd/dr.html', result_kurt_m=result_kurt_m)
 
 
 @rnd.route("/prob_formulas/form_details_dr")

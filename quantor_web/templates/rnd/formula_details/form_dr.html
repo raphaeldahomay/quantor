@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RnD Formula Details</title>
+    <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body>
+    <header>
+        <strong>Quantor</strong>
+        <button type="button">
+            <a href="{{ url_for('index') }}" style="text-decoration: none; color: black;">Home</a>
+        </button>
+        <button type="button">
+            <a href="{{ url_for('rnd_routes.dr_formulas') }}" style="text-decoration: none; color: black;">Back</a>
+        </button>
+        <p>Log In</p>
+        <p>Sign Up</p>
+    </header>
+    <hr>
+    <h3>Finding the Skewness</h3>
+    <p style="font-size: larger;">
+        \[
+        \text{Skewness} \;=\;
+        \frac{1}{(n-1)\, \sigma^{3}}
+        \sum_{i=1}^{n} (x_i - \bar{x})^{3}
+        \]
+    </p>
+    <hr>
+    <h3>Finding the Kurtosis</h3>
+    <p style="font-size: larger;">
+        \[
+        \text{Excess Kurtosis} \;=\;
+        \frac{1}{(n-1)\, \sigma^{4}}
+        \sum_{i=1}^{n} (x_i - \bar{x})^{4}
+        \;-\; 3
+        \]
+    </p>
+    <hr>
+    <footer>
+        <p>© 2026 Quantor. All rights reserved.</p>
+    </footer>
+</body>
