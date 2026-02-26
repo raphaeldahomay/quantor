@@ -2,11 +2,7 @@
 ## The Financial Calculator made for any kind of uses.
 
 Next things to do:
-- Define a simple prototype of the web home page
-- Plus start crafting the architecture of what a specific formula family page could look like
-- Must be done before adding any new formulas in the engine
-- Be as clean as possible
-
+- Proofread every functions to check any formulas' errors!
 
 The support tasks:
 - Read documentation about html (complete reminder)

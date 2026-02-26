@@ -1,11 +1,12 @@
 from engine.rnd.dnd import port_var_f_mat
 from engine.rnd.prob import inv_cdf, es_coeff
 from engine.rnd.rm import std_or_downside_dev
+from engine.rnd.dr import skewness_multiple, kurtosis_multiple
 import numpy as np
 import re
 
 
-def var_es_f_mat(returns, weights, conf, type="var", v_format="column"):
+def var_es_f_mat(returns, weights, conf=0.95, type="var", v_format="column"):
     p_var = port_var_f_mat(returns, weights, v_format)
     row = returns.strip().split("\n")
     table = [r.split("\t") for r in row]
@@ -22,7 +23,7 @@ def var_es_f_mat(returns, weights, conf, type="var", v_format="column"):
         phi = es_coeff(conf, mu, std)
     else:
         return "please enter a valid option"
-    return (std * phi) - mu
+    return round((std * phi) - mu, 6)
 
 
 def hist_var_es(
@@ -99,14 +100,41 @@ def hist_var_es(
     var = float(np.quantile(losses, alpha))
 
     if risk == "var":
-        return var
+        return round(var, 6)
 
     tail = losses[losses >= var]
     if tail.size == 0:
         return var
     es = float(tail.mean())
-    return es
+    return round(es, 6)
 
 
 
-# Add the Corner-Fish VaR
+import math
+
+def cornish_fisher_var(str_returns, weights, conf=0.95, v_format="column"):
+
+    fmt = v_format.lower()
+    orientation = "column" if fmt.startswith("col") else "row"
+
+    # portfolio sigma
+    sigma = math.sqrt(port_var_f_mat(str_returns, weights, v_format=orientation))
+
+    # portfolio skewness and excess kurtosis (already aggregated using weights)
+    gamma1 = skewness_multiple(str_returns, weights, orientation=orientation)
+    eK = kurtosis_multiple(str_returns, weights, orientation=orientation)
+
+    # standard normal quantile
+    z = inv_cdf(conf, mu=0, sig=1)
+
+    # Cornish–Fisher adjusted quantile
+    z_cf = (
+        z
+        + (1/6)  * (z**2 - 1)       * gamma1
+        + (1/24) * (z**3 - 3*z)     * eK
+        - (1/36) * (2*z**3 - 5*z)   * (gamma1**2)
+    )
+
+    # VaR as a positive loss magnitude
+    var_cf = (z_cf * sigma)
+    return round(var_cf, 6)

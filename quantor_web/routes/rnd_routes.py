@@ -4,6 +4,7 @@ from engine.rnd.prob import z_conversion, norm_cdf, inv_cdf, es_coeff
 from engine.rnd.rm import variance, std_or_downside_dev, semi_var
 from engine.rnd.dnd import corr, cov, cov_matrix, port_var_f_mat, port_var_hand_2_assets, div_effect
 from engine.rnd.dr import skewness_multiple, skewness_single, kurtosis_multiple, kurtosis_single
+from engine.rnd.tail import var_es_f_mat, hist_var_es, cornish_fisher_var
 
 rnd = Blueprint('rnd_routes', __name__, url_prefix='/rnd')
 
@@ -238,14 +239,61 @@ def see_rnd_form_dr():
 
 
 
+
+# < ---- All routes related to Tail Risk ---- >
+
 @rnd.route('/tail_formulas')
 def tail_formulas():
     return render_template('rnd/tail.html')
 
 
+@rnd.route('/tail_formulas/var_es_standard', methods=["POST"])
+def calc_stand_var_es():
+    ar_1 = request.form["ar_1"]
+    weigh = request.form["weigh"]
+    typee = request.form["type"]
+    forma = request.form["forma"]
+    try:
+        conf = request.form["conf"]
+        result_var_es_stand = var_es_f_mat(ar_1, weigh, conf, typee, forma)
+        return render_template('rnd/tail.html', result_var_es_stand=result_var_es_stand)
+    except:
+        pass
+    result_var_es_stand = var_es_f_mat(ar_1, weigh, type=typee, v_format=forma)
+    return render_template('rnd/tail.html', result_var_es_stand=result_var_es_stand)
 
 
+@rnd.route('/tail_formulas/var_es_hist', methods=["POST"])
+def calc_hist_var_es():
+    ar_1 = request.form["ar_1"]
+    weigh = request.form["weigh"]
+    typee = request.form["type"]
+    forma = request.form["forma"]
+    try:
+        conf = request.form["conf"]
+        result_var_es_hist = hist_var_es(ar_1, weigh, forma, typee, conf)
+        return render_template('rnd/tail.html', result_var_es_hist=result_var_es_hist)
+    except:
+        pass
+    result_var_es_hist = hist_var_es(ar_1, weigh, forma, typee)
+    return render_template('rnd/tail.html', result_var_es_hist=result_var_es_hist)
 
-@rnd.route('/scen_formulas')
-def scen_formulas():
-    return render_template('rnd/scen.html')
+
+@rnd.route('/tail_formulas/cornish_var', methods=["POST"])
+def calc_cornish_var():
+    ar_1 = request.form["ar_1"]
+    weigh = request.form["weigh"]
+    forma = request.form["forma"]
+    try:
+        conf = request.form["conf"]
+        result_cornish_var = cornish_fisher_var(ar_1, weigh, conf, forma)
+        return render_template('rnd/tail.html', result_cornish_var=result_cornish_var)
+    except:
+        pass
+    result_cornish_var = cornish_fisher_var(ar_1, weigh, v_format=forma)
+    return render_template('rnd/tail.html', result_cornish_var=result_cornish_var)
+
+
+@rnd.route("/prob_formulas/form_details_tail")
+def see_rnd_form_tail():
+    return render_template('rnd/formula_details/form_tail.html')

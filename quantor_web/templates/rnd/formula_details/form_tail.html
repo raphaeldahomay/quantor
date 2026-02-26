@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RnD Formula Details</title>
+    <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body>
+    <header>
+        <strong>Quantor</strong>
+        <button type="button">
+            <a href="{{ url_for('index') }}" style="text-decoration: none; color: black;">Home</a>
+        </button>
+        <button type="button">
+            <a href="{{ url_for('rnd_routes.tail_formulas') }}" style="text-decoration: none; color: black;">Back</a>
+        </button>
+        <p>Log In</p>
+        <p>Sign Up</p>
+    </header>
+    <hr>
+    <h3>Finding the Gaussian VaR or ES</h3>
+    <h4>Gaussian VaR:</h4>
+    <p style="font-size: larger;">
+        \[
+        \text{VaR}_{c}^{\text{Gaussian}}
+        =
+        -\left( \mu_p + \sigma_p \Phi^{-1}(1-c) \right)
+        \]
+    </p>
+    <h4>Gaussian ES:</h4>
+    <p style="font-size: larger;">
+        \[
+        \text{ES}_{c}^{\text{Gaussian}}
+        =
+        -\left(
+        \mu_p
+        +
+        \sigma_p
+        \frac{\phi\!\left(\Phi^{-1}(1-c)\right)}{1-c}
+        \right)
+        \]
+    </p>
+    <hr>
+    <h3>Finding the Historical VaR or ES:</h3>
+    <h4>Gaussian VaR:</h4>
+    <p style="font-size: larger;">
+        \[
+        \text{VaR}_{c}^{\text{Hist}}
+        =
+        - R_{(\lceil n(1-c) \rceil)}
+        \]
+    </p>
+    <h4>Gaussian ES:</h4>
+    <p style="font-size: larger;">
+        \[
+        \text{ES}_{c}^{\text{Hist}}
+        =
+        -
+        \frac{1}{\lceil n(1-c) \rceil}
+        \sum_{i=1}^{\lceil n(1-c) \rceil}
+        R_{(i)}
+        \]
+    </p>
+    <hr>
+    <h3>Finding the Cornish-Fisher VaR</h3>
+    <p style="font-size: larger;">
+        \[
+        \text{VaR}_{c}^{\text{CF}}
+        =
+        -
+        \sigma_p
+        \left[
+        z
+        +
+        \frac{1}{6}(z^2 - 1)\gamma_1
+        +
+        \frac{1}{24}(z^3 - 3z)\gamma_2
+        -
+        \frac{1}{36}(2z^3 - 5z)\gamma_1^2
+        \right]
+        \]
+    <br>
+        with:
+    <br>
+        \[
+        z = \Phi^{-1}(1-c)
+        \]
+    </p>
+    <hr>
+    <footer>
+        <p>© 2026 Quantor. All rights reserved.</p>
+    </footer>
+</body>
