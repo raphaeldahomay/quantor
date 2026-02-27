@@ -1,3 +1,6 @@
+<!-- When I will have time: Add the function to allow user converting their rates-->
+ <!-- Such as an APR into an EAR-->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,8 +38,6 @@
             {% if result_simple_pv %}
                 <p>The present value of your cash flow is <strong>{{result_simple_pv}}</strong> $</p>
             {% endif %}
-            <br>
-            <a href="{{ url_for('tvm_routes.see_tvm_form_1') }}">See formula details</a>
 	    </fieldset>
         </form>
     <hr>
@@ -59,8 +60,6 @@
             {% if result_simple_fv %}
                 <p>The future value of your cash flow is <strong>{{result_simple_fv}}</strong> $</p>
             {% endif %}
-            <br>
-            <a href="{{ url_for('tvm_routes.see_tvm_form_2') }}">See formula details</a>
 	    </fieldset>
         </form>
     <hr>
@@ -82,8 +81,6 @@
             {% if result_ann_stand %}
                 <p>The present value of your annuities is <strong>{{result_ann_stand}}</strong> $</p>
             {% endif %}
-            <br>
-            <a href="{{ url_for('tvm_routes.see_tvm_form_3') }}">See formula details</a>
 	    </fieldset>
         </form>
     <hr>
@@ -105,8 +102,6 @@
             {% if result_fv_ann %}
                 <p>The future value of your annuities is <strong>{{result_fv_ann}}</strong> $</p>
             {% endif %}
-            <br>
-            <a href="{{ url_for('tvm_routes.see_tvm_form_4') }}">See formula details</a>
 	    </fieldset>
         </form>
     <hr>
@@ -125,8 +120,6 @@
             {% else %}
                 <p>{{result_irr}}</p>
             {% endif %}
-            <br>
-            <a href="{{ url_for('tvm_routes.see_tvm_form_5') }}">See formula details</a>
 	    </fieldset>
         </form>
     <hr>
@@ -143,8 +136,6 @@
             {% else %}
                 <p>{{result_pv_perp}}</p>
             {% endif %}
-            <br>
-            <a href="{{ url_for('tvm_routes.see_tvm_form_6') }}">See formula details</a>
 	    </fieldset>
         </form>
     <hr>
@@ -163,10 +154,10 @@
             {% else %}
                 <p>{{result_pv_grow_perp}}</p>
             {% endif %}
-            <br>
-            <a href="{{ url_for('tvm_routes.see_tvm_form_7') }}">See formula details</a>
 	    </fieldset>
         </form>
+        <a href="{{ url_for('tvm_routes.see_tvm_form_details') }}">See formula details</a>
+    <hr>
     <footer>
         <p>© 2026 Quantor. All rights reserved.</p>
     </footer>

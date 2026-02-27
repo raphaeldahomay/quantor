@@ -94,12 +94,7 @@ def pv_growing_perpetuity(cf: float, r: float, g: float) -> float:
 
 
 def find_irr(iv: float, cf: float, n: int, tolerance: float = 1e-6) -> float:
-    """
-    Finds the Internal Rate of Return (IRR) using the Bisection Method.
-    iv: Initial Investment
-    cf: Annual Cash Flow
-    n:  Number of periods
-    """
+
     low, high = 0.0, 1.0
     
     if cf * n < iv:

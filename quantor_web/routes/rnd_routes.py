@@ -66,24 +66,9 @@ def calc_inv_cdf():
     return render_template('rnd/prob.html', z=f"{z:,}")
 
 
-@rnd.route("/prob_formulas/form_details_1")
-def see_rnd_form_1():
-    return render_template('rnd/formula_details/form_1.html')
-
-
-@rnd.route("/prob_formulas/form_details_2")
-def see_rnd_form_2():
-    return render_template('rnd/formula_details/form_2.html')
-
-
-@rnd.route("/prob_formulas/form_details_3")
-def see_rnd_form_3():
-    return render_template('rnd/formula_details/form_3.html')
-
-
-@rnd.route("/prob_formulas/form_details_4")
-def see_rnd_form_4():
-    return render_template('rnd/formula_details/form_4.html')
+@rnd.route("/prob_formulas/form_details")
+def see_rnd_form_prob():
+    return render_template('rnd/formula_details/form_prob.html')
 
 
 
@@ -120,9 +105,9 @@ def calc_semi_var():
     return render_template('rnd/rm.html', final_semi_var=final_semi_var)
 
 
-@rnd.route("/prob_formulas/form_details_5")
-def see_rnd_form_5():
-    return render_template('rnd/formula_details/form_5.html')
+@rnd.route("/rm_formulas/form_details")
+def see_rnd_form_rm():
+    return render_template('rnd/formula_details/form_rm.html')
 
 
 
@@ -186,7 +171,7 @@ def calc_div_effect():
     return render_template('rnd/dnd.html', result_div_effect=result_div_effect)
 
 
-@rnd.route("/prob_formulas/form_details_dnd")
+@rnd.route("/dnd_formulas/form_details")
 def see_rnd_form_dnd():
     return render_template('rnd/formula_details/form_dnd.html')
 
@@ -232,7 +217,7 @@ def calc_kurtosis_multip():
     return render_template('rnd/dr.html', result_kurt_m=result_kurt_m)
 
 
-@rnd.route("/prob_formulas/form_details_dr")
+@rnd.route("/dr_formulas/form_details")
 def see_rnd_form_dr():
     return render_template('rnd/formula_details/form_dr.html')
 
@@ -294,6 +279,6 @@ def calc_cornish_var():
     return render_template('rnd/tail.html', result_cornish_var=result_cornish_var)
 
 
-@rnd.route("/prob_formulas/form_details_tail")
+@rnd.route("/tail_formulas/form_details")
 def see_rnd_form_tail():
     return render_template('rnd/formula_details/form_tail.html')

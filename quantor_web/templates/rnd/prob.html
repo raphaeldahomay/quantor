@@ -29,8 +29,6 @@
             {% if z_score %}
                 <p>The equivalent z-score of your value is <strong>{{z_score}}</strong></p>
             {% endif %}
-            <br>
-            <a href="{{ url_for('rnd_routes.see_rnd_form_1') }}">See formula details</a>
 	    </fieldset>
         </form>
         <br>
@@ -47,8 +45,6 @@
             {% if es_c %}
                 <p>Your ES coefficient is equal to <strong>{{es_c}}</strong></p>
             {% endif %}
-            <br>
-            <a href="{{ url_for('rnd_routes.see_rnd_form_4') }}">See formula details</a>
 	    </fieldset>
         </form>
     <hr>
@@ -77,8 +73,6 @@
             {% if p %}
                 <p>The probability that your variable falls under z is <strong>{{p}}</strong> %</p>
             {% endif %}
-            <br>
-            <a href="{{ url_for('rnd_routes.see_rnd_form_2') }}">See formula details</a>
 	    </fieldset>
         </form>
     <hr>
@@ -107,10 +101,10 @@
             {% if z %}
                 <p>The z-score that gives you this prob is <strong>{{z}}</strong></p>
             {% endif %}
-            <br>
-            <a href="{{ url_for('rnd_routes.see_rnd_form_3') }}">See formula details</a>
 	    </fieldset>
         </form>
+    <br>
+        <a href="{{ url_for('rnd_routes.see_rnd_form_prob') }}">See formula details</a>
     <hr>
     <footer>
         <p>© 2026 Quantor. All rights reserved.</p>

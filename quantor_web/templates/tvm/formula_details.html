@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TVM Formula Details</title>
+    <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body>
+    <header>
+        <strong>Quantor</strong>
+        <button type="button">
+            <a href="{{ url_for('index') }}" style="text-decoration: none; color: black;">Home</a>
+        </button>
+        <button type="button">
+            <a href="{{ url_for('tvm_routes.tvm_formulas') }}" style="text-decoration: none; color: black;">Back</a>
+        </button>
+        <p>Log In</p>
+        <p>Sign Up</p>
+    </header>
+    <hr>
+    <h3>PV of a Future Single Cash Flow</h3>
+        <h4>With linear discounting:</h4>
+        <p style="font-size: larger;">
+            \[
+            PV = \frac{CF}{(1+r*n)}
+            \]
+        </p>
+        <br>
+        <h4>With standard discounting:</h4>
+        <p style="font-size: larger;">
+            \[
+            PV = \frac{CF}{(1+r)^n}
+            \]
+        </p>
+        <br>
+        <h4>With continuous discounting:</h4>
+        <p style="font-size: larger;">
+            \[
+            PV = \frac{CF}{e^{r*n}}
+            \]
+        </p>
+    <hr>
+    <br>
+    <h3>FV of a Present Single Cash Flow</h3>
+        <h4>With linear discounting:</h4>
+        <p style="font-size: larger;">
+            \[
+            FV = {CF}*{(1+r*n)}
+            \]
+        </p>
+        <br>
+        <h4>With standard discounting:</h4>
+        <p style="font-size: larger;">
+            \[
+            FV = {CF}*{(1+r)^n}
+            \]
+        </p>
+        <br>
+        <h4>With continuous discounting:</h4>
+        <p style="font-size: larger;">
+            \[
+            FV = {CF}*{e^{r*n}}
+            \]
+        </p>
+    <hr>
+    <br>
+    <h3>PV of Annuities</h3>
+        <h4>received at the start of the period:</h4>
+        <p style="font-size: larger;">
+            \[
+            PV = CF \cdot \frac{1 - (1 + r)^{-n}}{r}
+            \]
+        </p>
+        <br>
+        <h4>received at the end of the period:</h4>
+        <p style="font-size: larger;">
+            \[
+            PV = CF \cdot \frac{1 - (1 + r)^{-n}}{r} \cdot (1 + r)
+            \]
+        </p>
+    <hr>
+    <br>
+    <h3>FV of Annuities</h3>
+        <h4>received at the start of the period:</h4>
+        <p style="font-size: larger;">
+            \[
+            FV = CF \cdot \frac{(1 + r)^{n} - 1}{r}
+            \]
+        </p>
+        <br>
+        <h4>received at the end of the period:</h4>
+        <p style="font-size: larger;">
+            \[
+            FV = CF \cdot \frac{(1 + r)^{n} - 1}{r} \cdot (1 + r)
+            \]
+        </p>
+    <hr>
+    <br>
+    <h3>The Internal rate of an Investment generating equal CFs</h3>
+        <p style="font-size: larger;">
+            \[
+            0 = -CF_0 + \frac{CF_1}{(1 + IRR)} + \frac{CF_2}{(1 + IRR)^2} + \cdots + \frac{CF_n}{(1 + IRR)^n}
+            \]
+        </p>
+    <hr>
+    <br>
+    <h3>PV of an Annuity paid/received infinitely</h3>
+        <p style="font-size: larger;">
+            \[
+            PV = \frac{CF}{r}
+            \]
+        </p>
+    <hr>
+    <h3>PV of an Annuity growing at a constant g rate and paid/received infinitely</h3>
+        <p style="font-size: larger;">
+            \[
+            PV = \frac{CF}{(r - g)}
+            \]
+        </p>
+    <hr>
+    <footer>
+        <p>© 2026 Quantor. All rights reserved.</p>
+    </footer>
+</body>
